@@ -1,0 +1,8 @@
+class TodoItemIntegrationTest(APITestCase):
+
+    def test_create_todo_through_api_and_check_in_database(self):
+        response = self.client.post(reverse('todo-list'), {'title': 'Integration Test', 'description': 'Integration Test Description'})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        exists = TodoItem.objects.filter(title='Integration Test').exists()
+        self.assertTrue(exists)
